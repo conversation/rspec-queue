@@ -36,7 +36,7 @@ module RSpecQueue
 
       reporter.report(0) do |report|
         server.dispatch(example_group_hash, report)
-        [report.failed_examples.count, 1].sort[0] # exit status
+        [report.failed_examples.count, 1].min # exit status
       end
     ensure
       server.close
