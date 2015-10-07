@@ -7,7 +7,7 @@ module RSpecQueue
 
       configuration.worker_count.times do |index|
         fork do
-          # configuration.call_after_fork_hooks(index)
+          RSpecQueue::Configuration.call_after_fork_hooks(index)
           yield Worker.new(configuration.server_socket)
         end
       end
