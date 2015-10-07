@@ -6,6 +6,7 @@ module RSpecQueue
 
     attr_accessor :after_fork_block
     attr_accessor :before_fork_block
+    attr_accessor :server_socket
 
     def self.after_fork(&block)
       self.instance.after_fork_block = block
