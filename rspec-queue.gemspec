@@ -8,4 +8,5 @@ spec = Gem::Specification.new do |s|
   s.executables << 'rspec-queue'
 
   s.add_dependency 'rspec', '>= 3.0'
+  s.add_development_dependency 'pry-nav'
 end
