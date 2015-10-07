@@ -30,12 +30,12 @@ module RSpecQueue
       if message == "SHUT_DOWN"
         false
       else
-        @example_index = message.to_i
+        @example_group_key = message
       end
     end
 
     def current_example
-      @example_index
+      @example_group_key
     end
 
     def finish(reporter)

@@ -5,10 +5,10 @@ module RSpecQueue
       @server = UNIXServer.open(socket_path)
     end
 
-    def dispatch(example_groups, report)
-      example_index = 0
+    def dispatch(example_group_hash, report)
+      example_group_keys = example_group_hash.keys
 
-      while (example_index < example_groups.count || worker_uuids.count > 0) do
+      while (example_group_keys.count > 0 || worker_uuids.count > 0) do
         begin
           socket = @server.accept
           message = socket.gets.to_s.strip
@@ -20,9 +20,8 @@ module RSpecQueue
             socket.puts worker_uid
 
           when "GET_WORK"
-            if example_index < example_groups.count
-              socket.puts example_index.to_s
-              example_index += 1
+            if example_group_keys.count > 0
+              socket.puts example_group_keys.shift
             else
               socket.puts "SHUT_DOWN"
             end
