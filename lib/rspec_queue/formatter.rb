@@ -1,4 +1,5 @@
 require 'rspec/core/formatters'
+require 'rspec_queue/configuration'
 
 # A custom formatter used for our parallel test suite
 module RSpecQueue
@@ -62,7 +63,7 @@ module RSpecQueue
     end
 
     def cpu_count
-      ENV['PARALLEL_CPU_COUNT'].to_i
+      RSpecQueue::Configuration.instance.worker_count
     end
 
     def run_time_impact(example_run_time, total_duration, colorizer)
