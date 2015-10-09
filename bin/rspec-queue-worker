@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+require 'rspec_queue/runner/worker'
+require 'rspec_queue/formatter'
+
+RSpecQueue::Runner::Worker.invoke

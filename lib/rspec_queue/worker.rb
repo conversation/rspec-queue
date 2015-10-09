@@ -2,19 +2,8 @@ require 'json'
 
 module RSpecQueue
   class Worker
-    def self.each
-      configuration = RSpecQueue::Configuration.instance
-
-      configuration.worker_count.times do |index|
-        fork do
-          RSpecQueue::Configuration.call_after_fork_hooks(index)
-          yield Worker.new(configuration.server_socket)
-        end
-      end
-    end
-
-    def initialize(server_socket)
-      @server_socket = server_socket
+    def initialize
+      @server_socket = ENV["RSPEC_QUEUE_SERVER_ADDRESS"]
 
       socket = UNIXSocket.open(@server_socket)
       socket.puts "REGISTER"
@@ -39,7 +28,6 @@ module RSpecQueue
     end
 
     def finish(reporter)
-
       socket = UNIXSocket.open(@server_socket)
       socket.puts "FINISH"
 
