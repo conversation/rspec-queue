@@ -26,7 +26,7 @@ module RSpecQueue
           # report the results of the examples run to the master process
         worker.finish(reporter)
 
-        # exit
+      ensure
         Process.exit
       end
     end
