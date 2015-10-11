@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
-require 'rspec_queue/runner/server'
+require 'rspec_queue/server_runner'
 require 'rspec_queue/formatter'
 
 ENV['SPEC_OPTS'] = "--format RSpecQueue::Formatter" unless ENV['SPEC_OPTS']
-RSpecQueue::Runner::Server.invoke
+RSpecQueue::ServerRunner.invoke
