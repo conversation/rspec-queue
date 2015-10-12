@@ -14,7 +14,6 @@ module RSpecQueue
       server = RSpecQueue::Server.new
       worker_pids = []
 
-      RSpecQueue::Configuration.call_before_fork_hooks
       RSpecQueue::Configuration.instance.worker_count.times do |i|
         env = {
           "RSPEC_QUEUE_WORKER_ID" => i.to_s,
