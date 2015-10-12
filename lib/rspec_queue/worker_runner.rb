@@ -10,7 +10,7 @@ module RSpecQueue
       }.to_h
 
       RSpecQueue::Configuration.instance.server_socket = ENV["RSPEC_QUEUE_SERVER_ADDRESS"]
-      RSpecQueue::Configuration.call_after_fork_hooks(ENV["RSPEC_QUEUE_WORKER_ID"])
+      RSpecQueue::Configuration.call_after_worker_spawn_hooks(ENV["RSPEC_QUEUE_WORKER_ID"])
 
       worker = RSpecQueue::Worker.new
 
