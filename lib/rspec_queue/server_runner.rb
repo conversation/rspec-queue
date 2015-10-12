@@ -12,6 +12,7 @@ module RSpecQueue
 
       # start the server, so we are ready to accept connections from workers
       server = RSpecQueue::Server.new
+      worker_pids = []
 
       RSpecQueue::Configuration.call_before_fork_hooks
       RSpecQueue::Configuration.instance.worker_count.times do |i|
@@ -20,8 +21,7 @@ module RSpecQueue
           "RSPEC_QUEUE_SERVER_ADDRESS" => server.socket_path,
         }
 
-        # TODO, store pids so we can clean up after ourselves
-        spawn(env, "bundle", "exec", "rspec-queue-worker", *ARGV)
+        worker_pids << spawn(env, "rspec-queue-worker", *ARGV)
       end
 
       reporter = @configuration.reporter
@@ -32,6 +32,10 @@ module RSpecQueue
       end
     ensure
       server.close
+
+      worker_pids.each do |pid|
+        Process.kill("TERM", pid)
+      end
     end
   end
 end
