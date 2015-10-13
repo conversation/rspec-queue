@@ -1,4 +1,4 @@
-## rspec-queue
+# rspec-queue
 
 A parallel test runner specifically for rspec.
 
@@ -6,7 +6,7 @@ The main difference between this and similar gems is that it spawns entirely new
 
 It's intended to work with RSpec >= 3.0. It may work with earlier versions, but I doubt it.
 
-#### Usage
+## Usage
 Put it in your Gemfile, bundle, and you're away.
 
 ```ruby
@@ -37,7 +37,7 @@ By default, rspec-queue will spawn a number of workers equal to one less than th
 RSPEC_QUEUE_WORKERS=6 bundle exec rspec-queue spec
 ```
 
-#### Potential Issues
+## Potential Issues
 
 If you're doing some form of acceptance testing you'll probably want to use xvfb to isolate the browsers for each worker so they don't do annoying things like steal focus from each other. This can cause many headaches trying to debug strange failures!
 
@@ -77,7 +77,7 @@ end
 
 Setting a distinct public folder can also assist with issues that arise when uploading files in acceptance tests.
 
-#### Things that aren't great
+## Things that aren't great
 
 The way the formatting works isn't great. It was hacked together in a rush and extracted from an existing codebase as is. It unfortunately means that this gem won't work with any formatter that isn't it's own. The way the formatter is set in the rspec-queue binary is also not ideal and will likely cause issues with certain setups.
 
