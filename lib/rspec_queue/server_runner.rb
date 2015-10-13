@@ -26,8 +26,10 @@ module RSpecQueue
       reporter = @configuration.reporter
 
       reporter.report(0) do |report|
-        server.dispatch(example_group_hash, report)
-        [report.failed_examples.count, 1].min # exit status
+        @configuration.with_suite_hooks do
+          server.dispatch(example_group_hash, report)
+          [report.failed_examples.count, 1].min # exit status
+        end
       end
     ensure
       server.close
