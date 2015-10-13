@@ -5,6 +5,7 @@ spec = Gem::Specification.new do |s|
   s.authors = [""]
 
   s.bindir = 'bin'
+  s.files = `git ls-files -- lib/*`.split("\n")
   s.executables << 'rspec-queue'
   s.executables << 'rspec-queue-worker'
 
