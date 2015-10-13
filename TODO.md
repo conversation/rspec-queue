@@ -8,3 +8,4 @@
 - Separate the worker spawning code from the server rspec runner.
 - Potentially switch to TCPSocket to allow workers on other machines to communicate with the server.
 - Consider providing some rake tasks to perform various helpful tasks like cloning databases.
+- Suppress filter output in workers to reduce noise
