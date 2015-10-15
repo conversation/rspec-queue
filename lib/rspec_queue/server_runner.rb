@@ -36,6 +36,7 @@ module RSpecQueue
 
       worker_pids.each do |pid|
         Process.kill("TERM", pid)
+        Process.wait(pid)
       end
     end
   end
