@@ -1,6 +1,7 @@
 spec = Gem::Specification.new do |s|
   s.name = 'rspec-queue'
   s.version = '0.0.2'
+  s.licenses = ['MIT']
   s.summary = 'parallel rspec runner'
   s.authors = ["Nick Browne"]
   s.homepage = "http://github.com/conversation/rspec-queue"
