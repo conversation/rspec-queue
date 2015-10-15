@@ -2,7 +2,8 @@ spec = Gem::Specification.new do |s|
   s.name = 'rspec-queue'
   s.version = '0.0.2'
   s.summary = 'parallel rspec runner'
-  s.authors = [""]
+  s.authors = ["Nick Browne"]
+  s.homepage = "http://github.com/conversation/rspec-queue"
 
   s.bindir = 'bin'
   s.files = `git ls-files -- lib/*`.split("\n")
