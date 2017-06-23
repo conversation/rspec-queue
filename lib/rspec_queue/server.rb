@@ -7,6 +7,7 @@ module RSpecQueue
 
     def dispatch(example_group_hash, report)
       example_group_keys = example_group_hash.keys
+      puts "Total examples to run: #{example_group_keys.count}"
 
       while (example_group_keys.count > 0 || worker_uuids.count > 0) do
         begin
