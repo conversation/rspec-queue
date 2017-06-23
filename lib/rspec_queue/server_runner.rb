@@ -2,13 +2,12 @@ require 'rspec/core'
 require 'rspec_queue/configuration'
 require 'rspec_queue/server'
 require 'rspec_queue/worker'
+require 'rspec_queue/util'
 
 module RSpecQueue
   class ServerRunner < RSpec::Core::Runner
     def run_specs(example_groups)
-      example_group_hash = example_groups.map { |example_group|
-        [example_group.id, example_group]
-      }.to_h
+      example_hash = RSpecQueue::Util.flat_hashify(example_groups)
 
       # start the server, so we are ready to accept connections from workers
       server = RSpecQueue::Server.new
@@ -27,7 +26,7 @@ module RSpecQueue
 
       reporter.report(0) do |report|
         @configuration.with_suite_hooks do
-          server.dispatch(example_group_hash, report)
+          server.dispatch(example_hash, report)
           [report.failed_examples.count, 1].min # exit status
         end
       end
