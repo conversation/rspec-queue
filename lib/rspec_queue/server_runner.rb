@@ -28,7 +28,13 @@ module RSpecQueue
       reporter.report(0) do |report|
         @configuration.with_suite_hooks do
           server.dispatch(example_group_hash, report)
-          [report.failed_examples.count, 1].min # exit status
+
+          # Exit status
+          if @configuration.world.non_example_failure
+            1
+          else
+            [report.failed_examples.count, 1].min
+          end
         end
       end
     ensure
