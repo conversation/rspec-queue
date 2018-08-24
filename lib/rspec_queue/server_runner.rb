@@ -1,6 +1,7 @@
 require 'rspec/core'
 require 'rspec_queue/configuration'
 require 'rspec_queue/server'
+require 'rspec_queue/sort'
 require 'rspec_queue/worker'
 
 module RSpecQueue
@@ -9,6 +10,8 @@ module RSpecQueue
       example_group_hash = example_groups.map { |example_group|
         [example_group.id, example_group]
       }.to_h
+
+      example_group_hash = RSpecQueue::Sort.by_execution_time(example_group_hash)
 
       # start the server, so we are ready to accept connections from workers
       server = RSpecQueue::Server.new
