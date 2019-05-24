@@ -81,6 +81,10 @@ Setting a distinct public folder can also assist with issues that arise when upl
 
 The way the formatting works isn't great. It was hacked together in a rush and extracted from an existing codebase as is. It unfortunately means that this gem won't work with any formatter that isn't it's own. The way the formatter is set in the rspec-queue binary is also not ideal and will likely cause issues with certain setups.
 
+At the moment, the worker passes some lo-fi results to the server over the unix socket, but not the full set of example results that most formatters use and expect. To deal with this we use our custom formatter that only needs basic information.
+
+However, if we want to use another formatter, we would need to reconstruct much more information, which is difficult to marshal/unmarshal, and if we try to do this manually we risk coupling ourselves to a particular rspec version's internals.
+
 The plan is to fix that so it will work just fine with any formatter and make the configuration more sensible, but right now, it is how it is.
 
 ---
