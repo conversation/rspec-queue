@@ -1,0 +1,7 @@
+branches:
+  only:
+    - master
+language: ruby
+rvm:
+  - 2.4.1
+script: bundle exec rspec-queue spec
