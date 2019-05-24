@@ -6,13 +6,14 @@ require 'rspec_queue/worker'
 module RSpecQueue
   class ServerRunner < RSpec::Core::Runner
     def run_specs(example_groups)
+      worker_pids = []
+
       example_group_hash = example_groups.map { |example_group|
         [example_group.id, example_group]
       }.to_h
 
       # start the server, so we are ready to accept connections from workers
       server = RSpecQueue::Server.new
-      worker_pids = []
 
       RSpecQueue::Configuration.instance.worker_count.times do |i|
         env = {
@@ -38,7 +39,7 @@ module RSpecQueue
         end
       end
     ensure
-      server.close
+      server.close if server
 
       worker_pids.each do |pid|
         Process.kill("TERM", pid)
