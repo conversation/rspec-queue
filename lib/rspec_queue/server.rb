@@ -1,3 +1,6 @@
+require 'socket'
+require 'securerandom'
+
 module RSpecQueue
   class Server
 
