@@ -1,3 +1,7 @@
+# 0.2.0 (24 May 2019)
+- Write failed examples to log/rspec-failures.log
+- Made server more resilient to early problems
+
 # 0.1.0 (24 November 2017)
 - Ensure status code is nonzero when there is a non example failure (eg some kind of exception)
 
