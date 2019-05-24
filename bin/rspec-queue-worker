@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 require 'rspec_queue/worker_runner'
 require 'rspec_queue/formatter'
+require 'rspec_queue/failure_list_formatter'
 
 RSpecQueue::WorkerRunner.invoke

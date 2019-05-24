@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 require 'rspec_queue/server_runner'
 require 'rspec_queue/formatter'
+require 'rspec_queue/failure_list_formatter'
 
-ENV['SPEC_OPTS'] = "--format RSpecQueue::Formatter" unless ENV['SPEC_OPTS']
+ENV['SPEC_OPTS'] = "--format RSpecQueue::Formatter --format RSpecQueue::FailureListFormatter --out log/rspec-failures.log" unless ENV['SPEC_OPTS']
 RSpecQueue::ServerRunner.invoke
