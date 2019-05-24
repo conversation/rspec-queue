@@ -1,4 +1,5 @@
 require 'json'
+require 'socket'
 
 module RSpecQueue
   class Worker
