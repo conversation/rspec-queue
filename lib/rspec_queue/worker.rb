@@ -3,8 +3,8 @@ require 'socket'
 
 module RSpecQueue
   class Worker
-    def initialize
-      @server_socket = ENV["RSPEC_QUEUE_SERVER_ADDRESS"]
+    def initialize(server_socket)
+      @server_socket = server_socket
 
       socket = UNIXSocket.open(@server_socket)
       socket.puts "REGISTER"

@@ -6,22 +6,37 @@ require 'rspec_queue/worker'
 module RSpecQueue
   class ServerRunner < RSpec::Core::Runner
     def run_specs(example_groups)
-      worker_pids = []
-
       example_group_hash = example_groups.map { |example_group|
         [example_group.id, example_group]
       }.to_h
 
       # start the server, so we are ready to accept connections from workers
       server = RSpecQueue::Server.new
+      server_socket_path = server.socket_path
 
       RSpecQueue::Configuration.instance.worker_count.times do |i|
-        env = {
-          "RSPEC_QUEUE_WORKER_ID" => i.to_s,
-          "RSPEC_QUEUE_SERVER_ADDRESS" => server.socket_path,
-        }
+        fork do
+          require 'rspec_queue/formatter'
+          require 'rspec_queue/failure_list_formatter'
 
-        worker_pids << spawn(env, "rspec-queue-worker", *ARGV)
+          RSpecQueue::Configuration.instance.server_socket = server_socket_path
+          RSpecQueue::Configuration.call_after_worker_spawn_hooks(i.to_s)
+
+          worker = RSpecQueue::Worker.new(server_socket_path)
+
+          @configuration.with_suite_hooks do
+            reporter = @configuration.reporter
+
+            while(worker.has_work?)
+              # can we pass in a custom reporter which instantly reports back
+              # to the server?
+              example_group_hash[worker.current_example].run(reporter)
+            end
+
+              # report the results of the examples run to the master process
+            worker.finish(reporter)
+          end
+        end
       end
 
       reporter = @configuration.reporter
@@ -40,11 +55,7 @@ module RSpecQueue
       end
     ensure
       server.close if server
-
-      worker_pids.each do |pid|
-        Process.kill("TERM", pid)
-        Process.wait(pid)
-      end
+      Process.wait
     end
   end
 end
