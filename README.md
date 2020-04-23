@@ -4,7 +4,7 @@ A parallel test runner specifically for rspec.
 
 The main difference between this and similar gems is that it spawns entirely new worker processes instead of forking. This makes configuring the workers easier (especially when Rails is involved) as many things will "just work".
 
-It's intended to work with RSpec >= 3.0. It may work with earlier versions, but I doubt it.
+It's intended to work with RSpec >= 3.2. It may work with earlier versions, but I doubt it.
 
 ## Usage
 Put it in your Gemfile, bundle, and you're away.

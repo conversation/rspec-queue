@@ -1,3 +1,7 @@
+# 0.3.0 (22 April 2020)
+- Allow RSpec configuration suite hooks
+- Requires RSpec >= 3.2
+
 # 0.2.0 (24 May 2019)
 - Write failed examples to log/rspec-failures.log
 - Made server more resilient to early problems

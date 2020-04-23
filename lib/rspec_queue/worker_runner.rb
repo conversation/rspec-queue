@@ -14,16 +14,18 @@ module RSpecQueue
 
       worker = RSpecQueue::Worker.new
 
-      reporter = @configuration.reporter
+      @configuration.with_suite_hooks do
+        reporter = @configuration.reporter
 
-      while(worker.has_work?)
-        # can we pass in a custom reporter which instantly reports back
-        # to the server?
-        example_group_hash[worker.current_example].run(reporter)
+        while(worker.has_work?)
+          # can we pass in a custom reporter which instantly reports back
+          # to the server?
+          example_group_hash[worker.current_example].run(reporter)
+        end
+
+          # report the results of the examples run to the master process
+        worker.finish(reporter)
       end
-
-        # report the results of the examples run to the master process
-      worker.finish(reporter)
 
     ensure
       Process.exit

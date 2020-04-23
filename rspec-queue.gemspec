@@ -1,6 +1,6 @@
 spec = Gem::Specification.new do |s|
   s.name = 'rspec-queue'
-  s.version = '0.2.0'
+  s.version = '0.3.0'
   s.licenses = ['MIT']
   s.summary = 'parallel rspec runner'
   s.authors = ["Nick Browne"]
@@ -11,6 +11,6 @@ spec = Gem::Specification.new do |s|
   s.executables << 'rspec-queue'
   s.executables << 'rspec-queue-worker'
 
-  s.add_dependency 'rspec-core', '>= 3.0'
+  s.add_dependency 'rspec-core', '>= 3.2'
   s.add_development_dependency 'rspec'
 end
